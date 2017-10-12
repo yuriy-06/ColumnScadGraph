@@ -1,0 +1,18 @@
+Metadata-Version: 1.0
+Name: ColumnScadGraph
+Version: 1.0
+Summary: UNKNOWN
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: п»їР­С‚РѕС‚ РїР°РєРµС‚ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ СѓРїСЂРѕС‰РµРЅРЅС‹С… СЌРїСЋСЂ (РіСЂР°С„РёРєРѕРІ СѓСЃРёР»РёР№) РґР»СЏ СЃРµСЂРёРё РљР• Р±Р°Р»РѕРє Рё РєРѕР»РѕРЅРЅ.
+        РЈСЃРёР»РёСЏ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РёР· СЂР°СЃС‡РµС‚РЅРѕР№ РїСЂРѕРіСЂР°РјРјС‹  Scad.
+        РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:
+        ```
+        from ColumnScadGraph.ColumnScadGraph import ColumnScadGraph as sc
+        test = sc.ColumnScadGraph(rsuFileName = "g:/temp/analiz/rsu-B-G")
+        test.numbers([4064, 4065, 4066]) # Р·РґРµСЃСЊ СЃР»РµРІР° РЅР°РїСЂР°РІРѕ РљР• РєРѕР»РѕРЅРЅС‹
+        ```
+        ```
+Platform: UNKNOWN
