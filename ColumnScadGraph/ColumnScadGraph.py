@@ -1,4 +1,4 @@
-import re
+﻿import re
 import matplotlib.pyplot as plt
 
 
@@ -77,9 +77,16 @@ class ColumnScadGraph:
         # массив ke -> массив сечений -> массив усилий
         x = 0
         plt.title(title)
-        for ke in m:
-            plt.plot([x, x + 1], [ke[0][forceCase], ke[1][forceCase]])  # распечатали первые 2 сечения
-            x = x + 1
-            plt.plot([x, x + 1], [ke[1][forceCase], ke[2][forceCase]])  # распечатали 2-е и третье сечение
-            x = x + 1
+        try:
+            for ke in m:
+                plt.plot([x, x + 1], [ke[0][forceCase], ke[1][forceCase]])  # распечатали первые 2 сечения
+                plt.plot([x, x + 1], [0, 0])  # горизонтальная линия
+                x = x + 1
+                plt.plot([x, x + 1], [ke[1][forceCase], ke[2][forceCase]])  # распечатали 2-е и третье сечение
+                plt.plot([x, x + 1], [0, 0])  # горизонтальная линия
+                x = x + 1
+                plt.xlabel('sections')
+                plt.ylabel('Force')
+        except IndexError:
+            print("неполучилось распечататься, m =  " + str(m) + "\n")
         plt.show()

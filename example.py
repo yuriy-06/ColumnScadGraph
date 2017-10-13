@@ -1,3 +1,3 @@
 from ColumnScadGraph.ColumnScadGraph import ColumnScadGraph as sc
 test = sc(rsuFileName = "g:/temp/analiz/rsu-B-G")
-test.numbers([4064, 4065, 4066]) # здесь слева направо КЕ колонны
+test.numbers([3143, 3144]) # здесь слева направо КЕ колонны
