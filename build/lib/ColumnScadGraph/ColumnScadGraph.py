@@ -1,18 +1,16 @@
-import re
+﻿import re, sys
 import matplotlib.pyplot as plt
 
 
 class ColumnScadGraph:
     def __init__(self, rsuFileName):
         self.rsuFileName = rsuFileName  # для отладочных целей
-
         self.mLines = self.openReadClose(rsuFileName)  # записали из файлов массивы строк
-
         self.mn1 = []  # массивы усилий -- загружение 1
         self.mn2 = []  # загружение 2
+        self.plotCount = 1 # счетчик подокон графика
 
-    @staticmethod
-    def openReadClose(name):
+    def openReadClose(self, name): # считывает строки файла в массив
         f = open(name, "r")
         m = f.readlines()
         f.close()
@@ -20,7 +18,7 @@ class ColumnScadGraph:
 
     def patUsil(self, force):  # конструирует именованную группу рег. выражений, в зависимости от вида усилия,
         # переданного текстовой строкой
-        pat = "-{,1}\d*\.\d+E{,1}[-+]{,1}\d*"
+        pat = "-{,1}\d*\.\d+E??e??[-+]{,1}\d*"
         return "(?P<" + force + ">" + pat + ")" # вызывается в self.patNumber
 
     def patNumber(self, num, loadCase = "1"):
@@ -44,8 +42,8 @@ class ColumnScadGraph:
             # append еще раз оборачивает выводимое значение в массив, поэтому для каждого КЕ свой массив (3 скобки)
             # массив усилий -> массив сечений -> массив КЕ
             self.mn2.append(self.eachFileN(self.mLines, fPat2, ke))
-        self.plotMy(self.mn1, 'загружение 1_My')
-        self.plotMy(self.mn2, "загружение 2_My")
+        self.plotMy(self.mn1, 'загружение 1_My ' + str(mArg))
+        self.plotMy(self.mn2, "загружение 2_My " + str(mArg))
         plt.show()
 
     def eachFileN(self, linesInFile, fPat, item):  # парсит массив на наличие строк усилий, удовлетворяющих паттерну,
@@ -65,6 +63,8 @@ class ColumnScadGraph:
         if m == []:
             pass
             print("\n нет такого КЕ -- ", item)
+            print("lineString = ", lineString)
+            print("fPat =" , fPat)
         return m
 
     def plotMy(self, m, title):
@@ -74,12 +74,24 @@ class ColumnScadGraph:
         self.plot(m, title, 4)
 
     def plot(self, m, title, forceCase):  # forceCase - это вид усилий
+        plt.subplot(2, 1, self.plotCount)
+        self.plotCount += 1
+        ax = plt.gca()
+        #ax.spines['bottom'].set_position('center')
         # массив ke -> массив сечений -> массив усилий
         x = 0
         plt.title(title)
-        for ke in m:
-            plt.plot([x, x + 1], [ke[0][forceCase], ke[1][forceCase]])  # распечатали первые 2 сечения
-            x = x + 1
-            plt.plot([x, x + 1], [ke[1][forceCase], ke[2][forceCase]])  # распечатали 2-е и третье сечение
-            x = x + 1
-        plt.show()
+        try:
+            for ke in m:
+                plt.plot([x, x + 1], [ke[0][forceCase], ke[1][forceCase]])  # распечатали первые 2 сечения
+                plt.plot([x, x + 1], [0, 0])  # горизонтальная линия
+                x = x + 1
+                plt.plot([x, x + 1], [ke[1][forceCase], ke[2][forceCase]])  # распечатали 2-е и третье сечение
+                plt.plot([x, x + 1], [0, 0])  # горизонтальная линия
+                x = x + 1
+                #plt.xlabel('sections')
+                #plt.ylabel('Force')
+        except IndexError:
+            print("неполучилось распечататься, m =  " + str(m) + "\n")
+            sys.exit()
+        #plt.show()
