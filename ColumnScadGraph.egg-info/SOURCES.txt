@@ -1,9 +1,0 @@
-README.txt
-setup.py
-ColumnScadGraph/ColumnScadGraph.py
-ColumnScadGraph/__init__.py
-ColumnScadGraph.egg-info/PKG-INFO
-ColumnScadGraph.egg-info/SOURCES.txt
-ColumnScadGraph.egg-info/dependency_links.txt
-ColumnScadGraph.egg-info/requires.txt
-ColumnScadGraph.egg-info/top_level.txt
